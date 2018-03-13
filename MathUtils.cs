@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
+using System.Text;
 
 public class MathUtils
 {
@@ -1716,5 +1717,11 @@ public class MathUtils
 	public static float Remap(float value, float low1, float high1, float low2, float high2)
 	{
 		return low2 + (value - low1) * (high2 - low2) / (high1 - low1);
+	}
+
+	public static bool RotatedAABBContains(Bounds aabb, Vector3 point, Matrix4x4 transformMatrix)
+	{
+		Vector3 aabbSpacePoint = transformMatrix.inverse.MultiplyPoint(point);
+		return aabb.Contains(aabbSpacePoint);
 	}
 }
